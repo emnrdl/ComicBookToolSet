@@ -25,7 +25,7 @@ bl_info = {
 import bpy
 from bpy.props import PointerProperty
 
-from . emnrdl_tool_panel import (
+from . panel_ui import (
   Access_Tool_Panel, 
   Selection_Tool_Panel, 
   Property_Tool_Panel, 
