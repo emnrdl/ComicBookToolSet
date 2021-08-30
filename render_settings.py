@@ -118,6 +118,28 @@ class create_outline_OT_Operator(Operator):
         return{'FINISHED'}
 
 
+class Create_Camera_OT_Operator(Operator):
+
+    bl_idname = 'create.cameratoview' 
+    bl_label = 'Create to view'
+    bl_description = 'Create to view'
+    bl_options = {'REGISTER', 'UNDO'}
+
+
+    def execute(self, context):
+        
+        scn = bpy.context.scene
+        dta = bpy.data
+        camera_data = dta.cameras.new(name = 'Camera')
+        camera_object = dta.objects.new('Camera',camera_data)
+        scn.collection.objects.link(camera_object)
+
+        bpy.context.scene.camera = camera_object
+        bpy.ops.view3d.camera_to_view()
+        
+        return{'FINISHED'}
+
+
 class create_indoor_lighting_setup_OT_Operator(Operator):
 
     bl_idname = 'create.indoorlighting' 

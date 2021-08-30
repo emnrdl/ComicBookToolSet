@@ -26,7 +26,6 @@ class open_work_dir_OT_Operator(Operator):
             else:
                 os.startfile(filepath)
 
-
         else:
-            ShowMessageBox("Please Save the File","ERROR",'ERROR')
+            ShowMessageBox('Please Save the File','ERROR','ERROR')
         return{'FINISHED'}

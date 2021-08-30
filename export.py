@@ -49,6 +49,7 @@ class export_all_camera_OT_Operator(Operator):
                 camprops = {}
 
                 for cam in selected:
+                    camname = cam.name
                     
                     if 'Resolution_X' and 'Resolution_Y' in cam:
                         
