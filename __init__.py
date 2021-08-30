@@ -12,8 +12,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 bl_info = {
-    "name" : "EMNRDLToolSet",
-    "author" : "emnrdl",
+    "name" : "ComicBookToolSet",
+    "author" : "Emin Erdal",
     "description" : "",
     "blender" : (2, 90, 0),
     "version" : (0, 0, 3),
@@ -24,7 +24,7 @@ bl_info = {
 
 import bpy
 
-from . emnrdl_tool_panel import Tool_Panel
+from . panel_ui import Tool_Panel
 from . open_folder import open_work_dir_OT_Operator
 from . copy_to_loc import copy_to_objects_OT_Operator
 from . copy_and_del import copy_and_del_OT_Operator
