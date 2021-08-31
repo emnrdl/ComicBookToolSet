@@ -1,4 +1,5 @@
 import bpy
+from bpy.types import Operator
 import json
 from . exlib import ShowMessageBox
 
