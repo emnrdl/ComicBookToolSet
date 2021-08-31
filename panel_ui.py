@@ -7,7 +7,7 @@ class Access_Tool_Panel(Panel):
     bl_label = 'Access'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
 
     def draw(self, context):
         layout = self.layout
@@ -21,7 +21,7 @@ class Selection_Tool_Panel(Panel):
     bl_label = 'Selection'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
@@ -54,7 +54,7 @@ class Editing_Tool_Panel(Panel):
     bl_label = 'Editing'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
@@ -74,7 +74,7 @@ class Render_Tool_Panel(Panel):
     bl_label = 'Render'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
@@ -98,7 +98,7 @@ class Property_Tool_Panel(Panel):
     bl_label = 'Property'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
@@ -115,7 +115,7 @@ class Export_Tool_Panel(Panel):
     bl_label = 'Export'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
@@ -129,10 +129,10 @@ class Export_Tool_Panel(Panel):
 
 class Test_Tool_Panel(Panel):
     bl_idname = 'TEST_OBJECT_PT_eToolSet'
-    bl_label = 'Export'
+    bl_label = 'Test'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'EMNrdl Tool Set'
+    bl_category = 'ComicBookToolSet'
     
     def draw(self, context):
 
