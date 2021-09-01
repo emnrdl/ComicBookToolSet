@@ -138,3 +138,43 @@ class Create_Camera_OT_Operator(Operator):
         bpy.ops.view3d.camera_to_view()
         
         return{'FINISHED'}
+
+#code from stored view addon
+class SetSceneCamera(Operator):
+    bl_idname = "cameraselector.set_scene_camera"
+    bl_label = "Set Scene Camera"
+    bl_description = "Set chosen camera as the scene's active camera"
+
+    hide_others = False
+
+    def execute(self, context):
+        chosen_camera = context.active_object
+        scene = context.scene
+
+        if self.hide_others:
+            for c in [o for o in scene.objects if o.type == 'CAMERA']:
+                c.hide = (c != chosen_camera)
+        scene.camera = chosen_camera
+        bpy.ops.object.select_all(action ='DESELECT')
+        chosen_camera.select_set(True)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        if event.ctrl:
+            self.hide_others = True
+
+        return self.execute(context)
+
+class PreviewSceneCamera(Operator):
+    bl_idname = "cameraselector.preview_scene_camera"
+    bl_label = "Preview Camera"
+    bl_description = "Preview chosen camera and make scene's active camera"
+
+    def execute(self, context):
+        chosen_camera = context.active_object
+        bpy.ops.view3d.object_as_camera()
+        bpy.ops.object.select_all(action="DESELECT")
+        chosen_camera.select_set(True)
+        return {'FINISHED'}
+
+#-----------------------------------------------------------

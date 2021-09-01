@@ -29,7 +29,8 @@ from . panel_ui import (
   Access_Tool_Panel, 
   Selection_Tool_Panel, 
   Property_Tool_Panel, 
-  Render_Tool_Panel, 
+  Render_Tool_Panel,
+  Camera_Panel, 
   Export_Tool_Panel, 
   Editing_Tool_Panel, 
   Test_Tool_Panel
@@ -42,7 +43,9 @@ from . render_settings import (
   create_outline_OT_Operator, 
   set_camera_active_OT_Operator, 
   add_camera_resolution_OT_Operator, 
-  Create_Camera_OT_Operator
+  Create_Camera_OT_Operator,
+  SetSceneCamera,
+  PreviewSceneCamera
 )
 from . mesh_tool import add_bbox_OT_Operator
 from . selection_tools import (
@@ -63,8 +66,9 @@ classes = (
             Access_Tool_Panel,
             Selection_Tool_Panel,
             Editing_Tool_Panel,
-            Property_Tool_Panel,
             Render_Tool_Panel,
+            Camera_Panel,
+            Property_Tool_Panel,
             Export_Tool_Panel,
             Test_Tool_Panel,
             copy_to_objects_OT_Operator,
@@ -86,11 +90,10 @@ classes = (
             add_camera_resolution_OT_Operator,
             export_all_camera_OT_Operator,
             Create_Camera_OT_Operator,
+            SetSceneCamera,
+            PreviewSceneCamera,
             MyProperties
           )
-
-
-register, unregister = bpy.utils.register_classes_factory(classes)
 
 def register():
 

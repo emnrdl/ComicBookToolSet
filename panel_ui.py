@@ -84,15 +84,44 @@ class Render_Tool_Panel(Panel):
         row.operator('set.linerender',text='Set Render Settings',icon='RESTRICT_RENDER_OFF')
 
         row = layout.row()
-        row.operator('create.cameratoview',text='Create Camera from view',icon='RESTRICT_SELECT_OFF')
-
-        row = layout.row()
-        row.operator('set.cameraactive',text='Set Active Camera',icon='OUTLINER_OB_CAMERA')
-
-        row = layout.row()
         row.operator('create.outline',text='Create GP Outline',icon='OUTLINER_OB_GREASEPENCIL')
 
+class Camera_Panel(Panel):
+    bl_parent_id = 'RENDER_OBJECT_PT_eToolSet'
+    bl_idname = 'CAMERA_OBJECT_PT_eToolSet'
+    bl_label = 'Camera'
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = 'ComicBookToolSet'
+    
+    def draw(self, context):
+        
+        layout = self.layout
 
+        row = layout.row()
+        row.operator('set.cameraactive',text='Set Selected Camera Active',icon='OUTLINER_OB_CAMERA')
+
+        row = layout.row()
+        row.operator('create.cameratoview',text='Create Camera from view',icon='RESTRICT_SELECT_OFF')
+
+        #code from stored view addon
+        scene = context.scene
+        layout.label(text="Camera Selector")
+        cameras = sorted([o for o in scene.objects if o.type == 'CAMERA'],
+                         key=lambda o: o.name)
+
+        if len(cameras) > 0:
+            for camera in cameras:
+                row = layout.row(align=True)
+                row.context_pointer_set("active_object", camera)
+                row.operator("cameraselector.set_scene_camera",
+                                   text=camera.name, icon='OUTLINER_DATA_CAMERA')
+                row.operator("cameraselector.preview_scene_camera",
+                                   text='', icon='RESTRICT_VIEW_OFF')
+        else:
+            layout.label(text="No cameras in this scene")
+        
+        #----------------------------------------------------------
 class Property_Tool_Panel(Panel):
     bl_idname = 'PROPERTY_OBJECT_PT_eToolSet'
     bl_label = 'Property'
