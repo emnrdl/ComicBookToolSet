@@ -81,7 +81,7 @@ class Render_Tool_Panel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('set.linerender',text='Set Render Settings',icon='RESTRICT_RENDER_OFF')
+        row.operator('set.rendersettings',text='Set Render Settings',icon='RESTRICT_RENDER_OFF')
 
         row = layout.row()
         row.operator('create.outline',text='Create GP Outline',icon='OUTLINER_OB_GREASEPENCIL')

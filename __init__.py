@@ -39,7 +39,7 @@ from . open_folder import open_work_dir_OT_Operator
 from . copy_to_loc import copy_to_objects_OT_Operator
 from . copy_and_del import copy_and_del_OT_Operator
 from . render_settings import (
-  set_line_render_OT_Operator, 
+  Set_Render_Settings_OT_Operator, 
   create_outline_OT_Operator, 
   set_camera_active_OT_Operator, 
   add_camera_resolution_OT_Operator, 
@@ -73,7 +73,7 @@ classes = (
             Test_Tool_Panel,
             copy_to_objects_OT_Operator,
             copy_and_del_OT_Operator,
-            set_line_render_OT_Operator,
+            Set_Render_Settings_OT_Operator,
             create_outline_OT_Operator,
             set_camera_active_OT_Operator,
             add_bbox_OT_Operator,

@@ -1,27 +1,144 @@
 import bpy
-from . exlib import ShowMessageBox
 from bpy.types import Operator
+from . path_lib  import get_path
+from . exlib import ShowMessageBox, create_dir
 
 
-class set_line_render_OT_Operator(Operator):
+class Set_Render_Settings_OT_Operator(Operator):
     
-    bl_idname = 'set.linerender'
-    bl_label = 'Set render settings for Line Shading'
-    bl_description = 'Set render settings for Line Shading'
+    bl_idname = 'set.rendersettings'
+    bl_label = 'Set render settingsg'
+    bl_description = 'Set render settings'
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
         
         scene = bpy.data.scenes['Scene']    
-        active = bpy.context.active_object
 
-        if bpy.context.active_object.type == 'CAMERA':
-            bpy.context.scene.camera = active
-
-        scene.render.resolution_x = 4096
-        scene.render.resolution_y = 2048
         scene.render.film_transparent = True
+        scene.render.image_settings.compression = 0
+        
+        export_path = ''
+        if bpy.data.is_saved:
+            name = get_path.fullname() 
+            path = get_path.file_path() + 'render'
+            path = path.replace('/','\\')
+            export_path = path +'\\'+ name +'.exr'
+            scene.render.filepath = export_path
+        else:
+            ShowMessageBox('Please Save the File','ERROR','ERROR')
 
+        #data
+        bpy.context.scene.view_layers["View Layer"].use_pass_combined = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_z = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_normal = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_vector = True
+        #light
+        bpy.context.scene.view_layers["View Layer"].use_pass_diffuse_color = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_emit = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_shadow = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_ambient_occlusion = True
+        #cryptomatte
+        bpy.context.scene.view_layers["View Layer"].use_pass_cryptomatte_object = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_cryptomatte_material = True
+
+
+        #Compositor node setup
+        bpy.context.scene.use_nodes = True
+        tree = bpy.context.scene.node_tree
+
+        # clear default nodes
+        for node in tree.nodes:
+            tree.nodes.remove(node)
+
+        # create input image node
+        image_node = tree.nodes.new(type='CompositorNodeRLayers')
+        image_node.location = 0,0
+
+        # create output node
+        comp_node = tree.nodes.new('CompositorNodeComposite')   
+        comp_node.location = 800,150
+
+        links = tree.links
+        link = links.new(image_node.outputs[0], comp_node.inputs[0])
+        
+        #-------------------------------File Outputs--------------------------------
+
+        #image output
+        image_output = tree.nodes.new('CompositorNodeOutputFile')
+        image_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[0].name + '_frame_'
+        image_output.location = 800,0
+        link = links.new(image_node.outputs[0], image_output.inputs[0])
+        
+        #alpha output
+        alpha_output = tree.nodes.new('CompositorNodeOutputFile')
+        alpha_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[1].name +'_frame_'  
+        alpha_output.location = 800,-100
+        link = links.new(image_node.outputs[1], alpha_output.inputs[0])
+
+        #depth output
+        depth_output = tree.nodes.new('CompositorNodeOutputFile')
+        depth_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[2].name + '_frame_'
+        depth_output.location = 800,-200
+        link = links.new(image_node.outputs[2], depth_output.inputs[0])
+        
+        #normal output
+        normal_output = tree.nodes.new('CompositorNodeOutputFile')   
+        normal_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[3].name + '_frame_'
+        normal_output.location = 800,-300
+        link = links.new(image_node.outputs[3], normal_output.inputs[0])
+
+        #vector output
+        vector_output = tree.nodes.new('CompositorNodeOutputFile')   
+        vector_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[4].name + '_frame_'
+        vector_output.location = 800,-400
+        link = links.new(image_node.outputs[4], vector_output.inputs[0])
+        
+        #shadow output
+        shadow_output = tree.nodes.new('CompositorNodeOutputFile')   
+        shadow_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[5].name + '_frame_'
+        shadow_output.location = 800,-500
+        link = links.new(image_node.outputs[5], shadow_output.inputs[0])
+
+        #ao output
+        ao_output = tree.nodes.new('CompositorNodeOutputFile')   
+        ao_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[6].name + '_frame_'
+        ao_output.location = 800,-600
+        link = links.new(image_node.outputs[6], ao_output.inputs[0])
+        
+        #diffuse_color output
+        diffuse_color_output = tree.nodes.new('CompositorNodeOutputFile')   
+        diffuse_color_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[7].name + '_frame_'
+        diffuse_color_output.location = 800,-700
+        link = links.new(image_node.outputs[7], diffuse_color_output.inputs[0])
+        
+        #emission output
+        emission_output = tree.nodes.new('CompositorNodeOutputFile')   
+        emission_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[8].name + '_frame_'
+        emission_output.location = 800,-800
+        link = links.new(image_node.outputs[8], emission_output.inputs[0])
+        
+        #crpyto matte object output
+        crypto_object_output = tree.nodes.new('CompositorNodeOutputFile')   
+        crypto_object_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[9].name + '_frame_'
+        crypto_object_output.location = 800,-900
+        link = links.new(image_node.outputs[9], crypto_object_output.inputs[0])
+        
+        #crpyto matte material output
+        crypto_material_output = tree.nodes.new('CompositorNodeOutputFile') 
+        crypto_material_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[12].name + '_frame_'
+        crypto_material_output.location = 800,-1000
+        link = links.new(image_node.outputs[12], crypto_material_output.inputs[0])
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         return{'FINISHED'}
 
 
