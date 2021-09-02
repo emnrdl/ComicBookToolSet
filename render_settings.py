@@ -59,7 +59,7 @@ class Set_Render_Settings_OT_Operator(Operator):
 
         # create output node
         comp_node = tree.nodes.new('CompositorNodeComposite')   
-        comp_node.location = 800,150
+        comp_node.location = 800,200
 
         links = tree.links
         link = links.new(image_node.outputs[0], comp_node.inputs[0])
@@ -68,12 +68,11 @@ class Set_Render_Settings_OT_Operator(Operator):
 
         #image output
         image_output = tree.nodes.new('CompositorNodeOutputFile')
-        
+        image_output.location = 800,50
         if bpy.data.is_saved:
             image_output.base_path = path +'\\'+ name + '_' + bpy.context.scene.camera.name + '_frame_'
         else:
             ShowMessageBox('Please Save the File','ERROR','ERROR')
-        image_output.location = 800,0
 
         for count, outputs in enumerate(image_node.outputs, start=0):
             if (outputs.enabled == True):
@@ -81,7 +80,14 @@ class Set_Render_Settings_OT_Operator(Operator):
                     links.new(image_node.outputs[count], image_output.inputs[count])
                 else:    
                     image_output.file_slots.new(outputs.identifier)
-                    links.new(image_node.outputs[count], image_output.inputs[count]) 
+                    links.new(image_node.outputs[count], image_output.inputs[count])
+
+            if outputs.identifier == 'Depth':
+                normalize_node = tree.nodes.new('CompositorNodeNormalize')
+                normalize_node.location  = 400, -400
+                links.new(image_node.outputs[count], normalize_node.inputs[0])
+                links.new(normalize_node.outputs[0],image_output.inputs[count])
+                print(outputs.identifier)
         
         return{'FINISHED'}
 
