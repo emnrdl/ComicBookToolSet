@@ -42,6 +42,8 @@ class Set_Render_Settings_OT_Operator(Operator):
         bpy.context.scene.view_layers["View Layer"].use_pass_cryptomatte_object = True
         bpy.context.scene.view_layers["View Layer"].use_pass_cryptomatte_material = True
 
+        #file format
+        bpy.context.scene.render.image_settings.file_format = 'OPEN_EXR_MULTILAYER'
 
         #Compositor node setup
         bpy.context.scene.use_nodes = True
@@ -66,15 +68,20 @@ class Set_Render_Settings_OT_Operator(Operator):
 
         #image output
         image_output = tree.nodes.new('CompositorNodeOutputFile')
-        image_output.socket_value_update()
-
+        
         if bpy.data.is_saved:
-            image_output.base_path = path +'\\'+ name +'_'+ image_node.outputs[0].name + '_frame_'
+            image_output.base_path = path +'\\'+ name + '_' + bpy.context.scene.camera.name + '_frame_'
         else:
             ShowMessageBox('Please Save the File','ERROR','ERROR')
         image_output.location = 800,0
-        link = links.new(image_node.outputs[0], image_output.inputs[0])  
-        
+
+        for count, outputs in enumerate(image_node.outputs, start=0):
+            if (outputs.enabled == True):
+                if(count == 0):
+                    links.new(image_node.outputs[count], image_output.inputs[count])
+                else:    
+                    image_output.file_slots.new(outputs.identifier)
+                    links.new(image_node.outputs[count], image_output.inputs[count]) 
         
         return{'FINISHED'}
 
