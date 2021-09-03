@@ -224,6 +224,12 @@ class SetSceneCamera(Operator):
         scene.camera = chosen_camera
         bpy.ops.object.select_all(action ='DESELECT')
         chosen_camera.select_set(True)
+        
+        if 'Resolution_X' and 'Resolution_Y' in chosen_camera:
+                scene.render.resolution_x = chosen_camera['Resolution_X']
+                scene.render.resolution_y = chosen_camera['Resolution_Y']
+
+    
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -239,9 +245,18 @@ class PreviewSceneCamera(Operator):
 
     def execute(self, context):
         chosen_camera = context.active_object
+        scene = context.scene
+        
         bpy.ops.view3d.object_as_camera()
         bpy.ops.object.select_all(action="DESELECT")
         chosen_camera.select_set(True)
+
+        if 'Resolution_X' and 'Resolution_Y' in chosen_camera:
+            scene.render.resolution_x = chosen_camera['Resolution_X']
+            scene.render.resolution_y = chosen_camera['Resolution_Y']
+
+
+
         return {'FINISHED'}
 
 #-----------------------------------------------------------
