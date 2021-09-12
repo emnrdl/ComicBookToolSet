@@ -21,4 +21,4 @@ class MyProperties(PropertyGroup):
         description="Path to Directory",
         default="",
         maxlen=1024,
-        subtype='DIR_PATH')
+        subtype='FILE_PATH')

@@ -30,7 +30,8 @@ from . panel_ui import (
   Selection_Tool_Panel, 
   Property_Tool_Panel, 
   Render_Tool_Panel,
-  Camera_Panel, 
+  Camera_Panel,
+  Import_Tool_Panel,
   Export_Tool_Panel, 
   Editing_Tool_Panel, 
   Test_Tool_Panel
@@ -60,6 +61,7 @@ from . cacheable import add_cacheable_OT_Operator, select_cacheable_OT_Operator,
 from . navigation import show_outliner_OT_Operator
 from . export import export_all_camera_OT_Operator
 from . panel_property import MyProperties
+from . import_tools import Import_Camera_With_JSON_OT_Operator
 
 classes = (
             open_work_dir_OT_Operator,
@@ -69,6 +71,7 @@ classes = (
             Render_Tool_Panel,
             Camera_Panel,
             Property_Tool_Panel,
+            Import_Tool_Panel,
             Export_Tool_Panel,
             Test_Tool_Panel,
             copy_to_objects_OT_Operator,
@@ -92,6 +95,7 @@ classes = (
             Create_Camera_OT_Operator,
             SetSceneCamera,
             PreviewSceneCamera,
+            Import_Camera_With_JSON_OT_Operator,
             MyProperties
           )
 

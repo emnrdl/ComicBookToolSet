@@ -139,6 +139,19 @@ class Property_Tool_Panel(Panel):
         row = layout.row()
         row.operator('add.cacheable',text='Add Cacheable Property',icon='RNA_ADD')
 
+class Import_Tool_Panel(Panel):
+    bl_idname = 'IMPORT_OBJECT_PT_eToolSet'
+    bl_label = 'Import'
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = 'ComicBookToolSet'
+    
+    def draw(self, context):
+
+        layout = self.layout
+
+        row = layout.row()
+        row.operator('import.camerawithjson',text='Import Cameras',icon='CON_CAMERASOLVER')
 class Export_Tool_Panel(Panel):
     bl_idname = 'EXPORT_OBJECT_PT_eToolSet'
     bl_label = 'Export'
@@ -170,5 +183,3 @@ class Test_Tool_Panel(Panel):
         scn = context.scene
         col = layout.column(align=True)
         col.prop(scn.my_tool, "path", text="")
-
-        print(scn.my_tool.path)

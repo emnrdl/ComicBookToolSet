@@ -32,17 +32,21 @@ class export_all_camera_OT_Operator(Operator):
                 
                 #path and naming create
 
-                name = get_path.fullname() 
-                path = get_path.file_path() + '/alembic'
                 version = 1
+                name = get_path.fullname() 
+                path = get_path.file_path()
+                dir = path + 'camera' + '/' + 'Cams_' + 'v00' + str(version)
+   
                 
-                export_path = path + '/' + name + '_' + 'cameras' + '_' + 'v00' + str(version) + ".abc"
-
-                while os.path.isfile(export_path):
+                while os.path.isdir(dir):
                     version += 1 
-                    export_path = path + '/' + name + '_' + 'cameras' + '_' + 'v00' + str(version) + ".abc"
-                
+                    dir = path + 'camera' + '/' + 'Cams_' + 'v00' + str(version) 
 
+                jsonpath = dir + '/' + name + '_' + 'cameras' + '.json'
+                export_path = dir + '/' + name + '_' + 'cameras' + ".abc"               
+                #---------------------------------------------------                
+                
+                #dict create
                 cams = []
                 nonrescams_name = []
                 nonrescams = []
@@ -60,7 +64,7 @@ class export_all_camera_OT_Operator(Operator):
                         #cam property dict
                         
                         camprops = {
-                        'name': name,
+                        'name': camname,
                         'transform': transform.tolist(),
                         'resolutionX': resolutionX,
                         'resolutionY': resolutionY
@@ -69,22 +73,20 @@ class export_all_camera_OT_Operator(Operator):
                         cams.append(camprops)
 
                     else:
-                        nonrescams_name.append(name)
+                        nonrescams_name.append(camname)
                         nonrescams.append(cam)
+                #---------------------------------------------------
 
-                    
-
-                jsonpath = path + '/' + name + '_' + 'cameras' + '_' + 'v00' + str(version) + '.json'
-
+                #Export
                 if len(nonrescams) == 0:
+
+                    create_dir(dir)
                     
-                    #oley bee duzgun json yazdirdim yesssss
+                    #Export as a json file in output directory
                     with open(jsonpath, 'w', encoding='utf-8') as  outfile:
                         json.dump(cams, outfile, sort_keys=True, indent=4)
 
-                     #Export as a Alembic file in output directory
-                    create_dir(path)
-
+                    #Export as a Alembic file in output directory
                     bpy.ops.wm.alembic_export(filepath=export_path,
                                             selected=True, 
                                             global_scale=1.0, 
