@@ -33,9 +33,13 @@ from . panel_ui import (
   Camera_Panel,
   Import_Tool_Panel,
   Export_Tool_Panel, 
-  Editing_Tool_Panel, 
+  Editing_Tool_Panel,
+  Character_Tool_Panel, 
   Test_Tool_Panel
 )
+from . character import char_ref_OT_Opertator
+
+
 from . open_folder import open_work_dir_OT_Operator
 from . copy_to_loc import copy_to_objects_OT_Operator
 from . copy_and_del import copy_and_del_OT_Operator
@@ -73,7 +77,9 @@ classes = (
             Property_Tool_Panel,
             Import_Tool_Panel,
             Export_Tool_Panel,
+            Character_Tool_Panel,
             Test_Tool_Panel,
+            char_ref_OT_Opertator,
             copy_to_objects_OT_Operator,
             copy_and_del_OT_Operator,
             Set_Render_Settings_OT_Operator,

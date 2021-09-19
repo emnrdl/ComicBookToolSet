@@ -169,6 +169,21 @@ class Export_Tool_Panel(Panel):
         row = layout.row()
         row.operator('export.cacheable',text='Export Cacheable',icon='RNA_ADD')
 
+class Character_Tool_Panel(Panel):
+    bl_idname = 'CHAR_OBJECT_PT_eToolSet'
+    bl_label = 'Character'
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = 'ComicBookToolSet'
+    
+    def draw(self, context):
+
+        layout = self.layout
+
+        row = layout.row()
+        row.operator('char.ref',text='Referances Base Character',icon='RNA_ADD')
+
+
 class Test_Tool_Panel(Panel):
     bl_idname = 'TEST_OBJECT_PT_eToolSet'
     bl_label = 'Test'
