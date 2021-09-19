@@ -64,7 +64,7 @@ from . selection_tools import (
 from . cacheable import add_cacheable_OT_Operator, select_cacheable_OT_Operator, export_cacheable_OT_Operator
 from . navigation import show_outliner_OT_Operator
 from . export import export_all_camera_OT_Operator
-from . panel_property import MyProperties
+from . panel_property import PG_MyProperties
 from . import_tools import Import_Camera_With_JSON_OT_Operator
 
 classes = (
@@ -102,7 +102,7 @@ classes = (
             SetSceneCamera,
             PreviewSceneCamera,
             Import_Camera_With_JSON_OT_Operator,
-            MyProperties
+            PG_MyProperties
           )
 
 def register():
@@ -111,7 +111,7 @@ def register():
   
   for cls in classes:
     register_class(cls)
-  bpy.types.Scene.my_tool = PointerProperty(type = MyProperties)
+  bpy.types.Scene.my_tool = PointerProperty(type = PG_MyProperties)
 
 def unregister():
 

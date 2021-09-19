@@ -179,9 +179,14 @@ class Character_Tool_Panel(Panel):
     def draw(self, context):
 
         layout = self.layout
+        scn = context.scene
+        col = layout.column(align=True)
 
         row = layout.row()
         row.operator('char.ref',text='Referances Base Character',icon='RNA_ADD')
+
+        row = layout.row()
+        layout.prop(scn.my_tool, "charlist", text="") 
 
 
 class Test_Tool_Panel(Panel):
@@ -197,4 +202,4 @@ class Test_Tool_Panel(Panel):
 
         scn = context.scene
         col = layout.column(align=True)
-        col.prop(scn.my_tool, "path", text="")
+        col.prop(scn.my_tool, 'path', text='')

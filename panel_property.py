@@ -14,11 +14,20 @@ from bpy.types import (
 )
 
 
-class MyProperties(PropertyGroup):
+class PG_MyProperties(PropertyGroup):
 
     path : StringProperty(
         name="Dir Path",
         description="Path to Directory",
         default="",
         maxlen=1024,
-        subtype='FILE_PATH')
+        subtype='FILE_PATH'
+        )
+    
+    charlist : EnumProperty(
+        name="Character List:",
+        description="Apply Data to attribute.",      
+        items=[ ('OP1', "Male Character",""),
+                ('OP2', "Female Character","")
+                ]
+        )
