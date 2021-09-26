@@ -183,7 +183,7 @@ class Character_Tool_Panel(Panel):
         col = layout.column(align=True)
 
         row = layout.row()
-        row.operator('char.ref',text='Referances Base Character',icon='RNA_ADD')
+        row.operator('char.append',text='Referances Base Character',icon='RNA_ADD')
 
         row = layout.row()
         layout.prop(scn.my_tool, "charlist", text="") 

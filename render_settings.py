@@ -180,6 +180,7 @@ class create_outline_OT_Operator(Operator):
             gp_ob.grease_pencil_modifiers["Line Art"].source_type = 'SCENE'
             gp_ob.grease_pencil_modifiers["Line Art"].target_layer = 'GP_Layer'
             gp_ob.grease_pencil_modifiers["Line Art"].target_material = gp_mat
+            gp_ob.grease_pencil_modifiers["Line Art"].thickness = 2
             bpy.ops.object.select_all(action='DESELECT')
 
         return{'FINISHED'}
