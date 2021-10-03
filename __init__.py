@@ -37,7 +37,7 @@ from . panel_ui import (
   Character_Tool_Panel, 
   Test_Tool_Panel
 )
-from . character import char_append_OT_Opertator
+from . character_reff import char_append_OT_Opertator
 
 
 from . open_folder import open_work_dir_OT_Operator

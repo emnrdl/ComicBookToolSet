@@ -15,7 +15,7 @@ class char_append_OT_Opertator(Operator):
         selected = bpy.context.selected_objects
 
         selected_char = str(bpy.context.scene.my_tool.charlist)
-        file_path = bpy.utils.user_resource('SCRIPTS') + '\\addons\\ComicBookToolSet\\baseChar\\Base_Male_A\\Base_Male_A.blend'
+        file_path = str(bpy.utils.user_resource('SCRIPTS')) + '\\addons\\ComicBookToolSet\\baseChar\\Base_Male_A\\Base_Male_A.blend'
         inner_path = 'Collection'
         object_name = 'Male_Rig'
         print(selected_char)
@@ -31,7 +31,7 @@ class char_append_OT_Opertator(Operator):
 
             )
         if selected_char == 'OP2':
-            file_path = bpy.utils.user_resource('SCRIPTS') + '\\addons\\ComicBookToolSet\\baseChar\\Base_Female_A\\Base_Female_A.blend'
+            file_path = str(bpy.utils.user_resource('SCRIPTS')) + '\\addons\\ComicBookToolSet\\baseChar\\Base_Female_A\\Base_Female_A.blend'
             object_name = 'Female_Rig'
             
             bpy.ops.wm.append(
